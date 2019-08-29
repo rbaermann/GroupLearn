@@ -10,23 +10,25 @@
         <title>User</title>
     </head>
     <body>
+        <div class="header">
+            <a href="/Dashboard">Home</a>
+            <a href="/Logout">Logout</a>
+        </div>
         <h1>User Information</h1>
         <h3>Name: @Model.UserInfo.FirstName @Model.UserInfo.LastName</h3>
         @{
             if(@Model.UserInfo.UserRates.Count == 0)
             {
-                <h3>User has not been rated yet.</h3>
+                <h3>@Model.UserInfo.FirstName has not been rated yet.</h3>
             }
             else
             {
                 <h3>Rating: @Model.UserInfo.Rating</h3>
+                <h3>Total # of Ratings: @Model.UserInfo.UserRates.Count</h3>
             }
 
             if(@Model.UserInfo.UserId != @Model.CurrentUser.UserId)
             {
-
-                <h3>Total # of Ratings: @Model.UserInfo.UserRates.Count</h3>
-
                 if(@Model.UserInfo.UserRates.Any(ur => ur.CurUser == (int)@Model.CurrentUser.UserId))
                 {
                     <a href="/removeRating/@Model.UserInfo.UserId/@Model.CurrentUser.UserId">Remove Rating</a>
@@ -54,5 +56,55 @@
             }
         }
         <h3>School: @Model.UsersSchool.Name</h3>
+
+        @{
+            <table>
+                <tr>
+                    <th>Group Name</th>
+                    <th>Leader</th>
+                    <th>Date</th>
+                    <th>Subject</th>
+                    <th>Location</th>
+                    <th>Meeting Time</th>
+                    <th>Study Time</th>
+                    <th>Size</th>
+                    <th>Action</th>
+                </tr>
+                @foreach(Group group in Model.UsersGroups)
+                {
+                    if(@Model.UserInfo == group.Leader)
+                    {
+                        <tr>
+                            <td><a href="/ViewGroup/@group.GroupId">@group.Name</a></td>
+                            
+                            <td>@group.Leader.FirstName</td>
+                            <td>@group.Date.ToString("MMM d")</td>
+                            <td>@group.Subject</td>
+                            <td>@group.Location</td>
+                            <td>@group.Time.ToString("t")</td>
+                            <td>@group.Duration @group.HourMinute</td>
+                            <td>@group.UserGroups.Count</td>
+                            <td>
+                                @{
+                                    if(group.Leader == @Model.CurrentUser)
+                                    {
+                                        <a href="/Delete/@group.GroupId">Delete Group</a>
+                                    }
+                                    else if(group.UserGroups.Any(u=>u.UserId==@Model.CurrentUser.UserId))
+                                    {
+                                        <a href="/Remove/@group.GroupId/@Model.CurrentUser.UserId">Leave Group</a>
+                                    }
+                                    else
+                                    {
+                                        <a href="/Join/@group.GroupId/@Model.CurrentUser.UserId">Join Group</a>
+                                    }
+                                    
+                                }
+                            </td>
+                        </tr>
+                    }
+                }
+            </table>
+        }
     </body>
 </html>

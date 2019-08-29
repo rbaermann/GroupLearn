@@ -1,35 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <link rel="stylesheet" href="~/css/ViewGroup.css"/>
-
-</head>
-<body>
-    @model ViewGroupViewModel
-    <div class="header">
-        <a class="home" href="/Dashboard">Home</a>
-        <a class="logout" href="/Logout">Logout</a>
-       
-    </div>
-
-    <div class="middle">
-        <h2>@Model.thisGroup.Name</h2>
-        <h4>Group Leader: @Model.thisGroup.Leader.FirstName @Model.thisGroup.Leader.LastName</h4>
-        <h4>When We Are Meeting: @Model.thisGroup.Date.ToString("MMM dd"), @Model.thisGroup.Time.ToString("t")</h4>
-        <h4>How Long We Plan On Studying: @Model.thisGroup.Duration @Model.thisGroup.HourMinute</h4>
-    </div>
-    <div class="joined">
-        <h4>Group Members:</h4>
-        @foreach(var members in Model.thisGroup.UserGroups)
-        {
-            <p>@members.User.FirstName @members.User.LastName</p>
-        }
-    </div>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Document</title>
+        <link rel="stylesheet" href="~/css/ViewGroup.css"/>
 
 
-</body>
+    </head>
+    <body>
+        @model ViewGroupViewModel
+        <div class="header">
+            <a href="/Dashboard">Home</a>
+            <a href="/Logout">Logout</a>
+            @{
+                if(@Model.thisGroup.Leader == @Model.thisUser)
+                {
+                    <a href="/Delete/@Model.thisGroup.GroupId">Delete Group</a>
+                }
+                else if(@Model.thisGroup.UserGroups.Any(u=>u.UserId==@Model.thisUser.UserId))
+                {
+                    <a href="/Remove/@Model.thisGroup.GroupId/@Model.thisUser.UserId">Leave Group</a>
+                }
+                else
+                {
+                    <a href="/Join/@Model.thisGroup.GroupId/@Model.thisUser.UserId">Join Group</a>
+                }
+                
+            }
+        </div>
+
+        <div class="middle">
+            <h2>@Model.thisGroup.Name</h2>
+            <h4>Group Leader: <a href="/User/@Model.thisGroup.Leader.UserId">@Model.thisGroup.Leader.FirstName @Model.thisGroup.Leader.LastName</a></h4>
+            <h4>When We Are Meeting: @Model.thisGroup.Date.ToString("MMM dd"), @Model.thisGroup.Time.ToString("t")</h4>
+            <h4>How Long We Plan On Studying: @Model.thisGroup.Duration @Model.thisGroup.HourMinute</h4>
+        </div>
+        <div class="joined">
+            @if(@Model.thisGroup.UserGroups.Count == 0)
+            {
+                <h4>There are Currently no Group Members</h4>
+            }
+            else
+            {
+            <h4>Group Members:</h4>
+                @foreach(var members in Model.thisGroup.UserGroups)
+                {
+                    <p>@members.User.FirstName @members.User.LastName</p>
+                }
+            }
+        </div>
+    </body>
 </html>

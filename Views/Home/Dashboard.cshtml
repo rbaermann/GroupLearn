@@ -32,35 +32,37 @@
                     
                     @foreach(Group group in Model.currentGroups)
                     {
-                        <tr>
-                            <td><a href="/ViewGroup/@group.GroupId">@group.Name</a></td>
-                            
-                            <td>@group.Leader.FirstName</td>
-                            <td>@group.Date.ToString("MMM d")</td>
-                            <td>@group.Subject</td>
-                            <td>@group.Location</td>
-                            <td>@group.Time</td>
-                            <td>@group.Duration @group.HourMinute</td>
-                            <td>@group.UserGroups.Count</td>
-                            <td>
-                                @{
-                                    if(group.Leader ==@Model.thisUser)
-                                    {
-                                        <a href="/Delete/@group.GroupId">Delete Group</a>
+                        if(@Model.thisUser.SchoolId == group.Leader.SchoolId)
+                        {
+                            <tr>
+                                <td><a href="/ViewGroup/@group.GroupId">@group.Name</a></td>
+                                
+                                <td><a href="/User/@group.Leader.UserId">@group.Leader.FirstName</a></td>
+                                <td>@group.Date.ToString("MMM d")</td>
+                                <td>@group.Subject</td>
+                                <td>@group.Location</td>
+                                <td>@group.Time.ToString("t")</td>
+                                <td>@group.Duration @group.HourMinute</td>
+                                <td>@group.UserGroups.Count</td>
+                                <td>
+                                    @{
+                                        if(group.Leader ==@Model.thisUser)
+                                        {
+                                            <a href="/Delete/@group.GroupId">Delete Group</a>
+                                        }
+                                        else if(group.UserGroups.Any(u=>u.UserId==@Model.thisUser.UserId))
+                                        {
+                                            <a href="/Remove/@group.GroupId/@Model.thisUser.UserId">Leave Group</a>
+                                        }
+                                        else
+                                        {
+                                            <a href="/Join/@group.GroupId/@Model.thisUser.UserId">Join Group</a>
+                                        }
+                                        
                                     }
-                                    else if(group.UserGroups.Any(u=>u.UserId==@Model.thisUser.UserId))
-                                    {
-                                        <a href="/Remove/@group.GroupId/@Model.thisUser.UserId">Leave Group</a>
-                                    }
-                                    else
-                                    {
-                                        <a href="/Join/@group.GroupId/@Model.thisUser.UserId">Join Group</a>
-                                    }
-                                    
-                                }
-                            </td>
-                        </tr>
-                        
+                                </td>
+                            </tr>
+                        }
                     }
                 </table>
                 
@@ -68,6 +70,7 @@
             <div class="creategroup">
                 <a class="studygroup" href="/AddGroup">Create A Study Group</a>
             </div>
+            <a href="/AddGroup">Create A Study Group</a>
         </div>
     </body>
 </html>
