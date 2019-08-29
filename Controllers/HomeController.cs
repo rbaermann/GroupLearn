@@ -251,6 +251,12 @@ namespace GroupLearn.Controllers
                 viewModel.UsersSchool = dbContext.Schools
                 .FirstOrDefault(s => s.SchoolId == viewModel.UserInfo.SchoolId);
 
+                viewModel.UsersGroups = dbContext.Groups
+                .Include(l=>l.Leader)
+                .Include(ug=>ug.UserGroups)
+                .ThenInclude(u=>u.User)
+                .ToList();
+
                 return View("ViewUser", viewModel);
             }
             return RedirectToAction("Index");

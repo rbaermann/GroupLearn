@@ -11,5 +11,7 @@ namespace GroupLearn.Models
         public User UserInfo {get; set;}
 
         public School UsersSchool {get; set;}
+
+        public List<Group> UsersGroups {get; set;}
     }
 }
