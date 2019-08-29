@@ -33,11 +33,11 @@
             <br>
             <span asp-validation-for="newGroup.Time"></span>
             <label asp-for="newGroup.Time">Time: </label>
-            <input type="text" asp-for="newGroup.Time">
+            <input type="datetime" asp-for="newGroup.Time">
             <br>
             <span asp-validation-for="newGroup.Duration"></span>
             <label asp-for="newGroup.Duration">Duration: </label>
-            <input type="text" asp-for="newGroup.Duration">
+            <input type="number" asp-for="newGroup.Duration">
             <span asp-validation-for="newGroup.HourMinute"></span>
             <select asp-for="newGroup.HourMinute">
                 <option>Hours</option>

@@ -17,6 +17,7 @@ namespace GroupLearn.Models
         public string Subject{get;set;}
 
         [Required]
+        [ValidDate]
         public DateTime Date{get;set;}
 
         public int Size{get;set;}
@@ -24,8 +25,9 @@ namespace GroupLearn.Models
         [Required]
         public string Location{get;set;}
         [Required]
-        public string Time{get;set;}
+        public DateTime Time{get;set;}
 
+        [Dur]
         public int Duration{get;set;}
         public string HourMinute{get;set;}
 
@@ -37,5 +39,29 @@ namespace GroupLearn.Models
 
         public DateTime CreatedAt{get;set;}=DateTime.Now;
         public DateTime UpdatedAt{get;set;}=DateTime.Now;
+
+        public class ValidDateAttribute : ValidationAttribute
+        {
+            protected override ValidationResult IsValid(object value, ValidationContext validationContext)
+            {
+                if ((DateTime)value < DateTime.Today)
+                {
+                    return new ValidationResult("Please Enter a Future Date.");
+                }
+                return ValidationResult.Success;
+            }
+        }
+
+        public class DurAttribute : ValidationAttribute
+        {
+            protected override ValidationResult IsValid(object value, ValidationContext validationContext)
+            {
+                if((int)value < 0)
+                {
+                    return new ValidationResult("Please Enter a Valid Duration.");
+                }
+                return ValidationResult.Success;
+            }
+        }
     }
 }
