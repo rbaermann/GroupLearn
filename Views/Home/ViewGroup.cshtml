@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    @model ViewGroupViewModel
+    <div class="header">
+        <a href="/Dashboard">Home</a>
+        <a href="/Logout">Logout</a>
+    </div>
+
+    <div class="middle">
+        <h2>@Model.thisGroup.Name</h2>
+        <h4>Group Leader: @Model.thisGroup.Leader.FirstName @Model.thisGroup.Leader.LastName</h4>
+        <h4>When We Are Meeting: @Model.thisGroup.Time</h4>
+        <h4>How Long We Plan On Studying: @Model.thisGroup.Duration @Model.thisGroup.HourMinute</h4>
+    </div>
+    <div class="joined">
+        <h4>Group Members:</h4>
+        @foreach(var members in Model.thisGroup.UserGroups)
+        {
+            <p>@members.User.FirstName @members.User.LastName</p>
+        }
+    </div>
+
+
+</body>
+</html>

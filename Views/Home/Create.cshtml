@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    @model CreateGroupViewModel
+    <div class="header">
+        <a href="/Dashboard">Home</a>
+        <a href="/Logout">Logout</a>
+    </div>
+
+    <div class="form">
+        <form asp-action="CreateGroup" asp-controller="Home" method="POST">
+            <span asp-validation-for="newGroup.Name"></span>
+            <label asp-for="newGroup.Name">Group Name: </label>
+            <input type="text" asp-for="newGroup.Name">
+            <br>
+            <span asp-validation-for="newGroup.Date"></span>
+            <label asp-for="newGroup.Date">Date: </label>
+            <input type="date" asp-for="newGroup.Date">
+            <br>
+            <span asp-validation-for="newGroup.Subject"></span>
+            <label asp-for="newGroup.Subject">Subject: </label>
+            <input type="text" asp-for="newGroup.Subject">
+            <br>
+            <span asp-validation-for="newGroup.Location"></span>
+            <label asp-for="newGroup.Location">Location: </label>
+            <input type="text" asp-for="newGroup.Location">
+            <br>
+            <span asp-validation-for="newGroup.Time"></span>
+            <label asp-for="newGroup.Time">Time: </label>
+            <input type="text" asp-for="newGroup.Time">
+            <br>
+            <span asp-validation-for="newGroup.Duration"></span>
+            <label asp-for="newGroup.Duration">Duration: </label>
+            <input type="text" asp-for="newGroup.Duration">
+            <span asp-validation-for="newGroup.HourMinute"></span>
+            <select asp-for="newGroup.HourMinute">
+                <option>Hours</option>
+                <option>Minutes</option>
+            </select>
+            <br>
+            <input type="submit" value="Create Your Group">
+        </form>
+    </div>
+</body>
+</html>
