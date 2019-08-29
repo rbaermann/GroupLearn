@@ -1,9 +1,51 @@
-<<<<<<< HEAD
+.header{
+    height: 100px;
+    width: auto;
+    border-bottom: 1px solid black;
+    text-align: center;
 
-.container{
+}
+.dashboardImage{
+    height: 130px;
+    width: 130px;
+}
+.header h3{
+    display: inline-block;
+}
+
+.logout{
+    margin-left: 100px;
+}
+
+body{
+    width: auto;
+    background-image: url("../img/GroupDashboardImage.png");
+    background-size: cover;
+    transform: rotate(.2deg);
+}
+
+
+table, th, td{
     border: 1px solid black;
-=======
-* {
-    color: brown;
->>>>>>> 3b62cd1393dfc08e5b66e07b9bda70f19f69dde2
+}
+
+.table{
+    margin-top: 120px;
+    height: 260px;
+    overflow: auto;
+    max-width: 980px;
+    border: 1px solid black;
+}
+
+tr:nth-child(even){
+    background-color: #dddddd;
+}
+
+tr:nth-child(odd)
+{
+    background-color: whitesmoke;
+}
+
+.creategroup{
+    text-align: center;
 }

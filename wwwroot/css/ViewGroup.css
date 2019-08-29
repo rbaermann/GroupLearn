@@ -1,0 +1,26 @@
+
+body{
+    height: auto;
+    width: 100vw;
+    margin: 0;
+    padding: 0;
+}
+
+.header{
+    height: 100px;
+    border-bottom: 1px solid black;
+    position: relative;
+    width: 100vw;
+
+}
+
+
+.joined{
+    border: 1px solid black;
+}
+
+.logout{
+    position: absolute;
+    top: 30px;
+    right: 30px;
+}

@@ -10,21 +10,25 @@
 
     <body>
         @model LoginViewModel
+        <div class="logo">
+            <img class="loginImage" src="../img/logo_transparent.png">
+            
+        </div>
+        <a class="newUser" href="/newUser">Need to Register?</a>
         <div class="container">
-            <a href="/newUser">Need to Register?</a>
             <h1>Login</h1>
             <div class="login">
                 <form asp-action="LoginUser" asp-controller="Home" method="POST">
                     <span asp-validation-for="newLogin.loginEmail"></span>
-                    <label asp-for="newLogin.loginEmail">Email: </label>
+                    <label class="email" asp-for="newLogin.loginEmail">Email: </label>
                     <input type="text" asp-for="newLogin.loginEmail">
                     <br>
         
                     <span asp-validation-for="newLogin.loginPassword"></span>
-                    <label asp-for="newLogin.loginPassword">Password: </label>
+                    <label class="password" asp-for="newLogin.loginPassword">Password: </label>
                     <input type="password" asp-for="newLogin.loginPassword">
                     <br>
-                    <input type="submit" value="Login">
+                    <input class="button" type="submit" value="Login">
                 </form>
             </div>
         </div>   

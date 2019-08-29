@@ -5,19 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-<<<<<<< HEAD
-    <link rel="stylesheet" href="~/css/GroupDashboard.css">
-=======
     <link rel="stylesheet" href="~/css/GroupDashboard.css"/>
->>>>>>> 3b62cd1393dfc08e5b66e07b9bda70f19f69dde2
 </head>
 <body>
     @model GroupDashboardViewModel
+    <div class="header">
+        <h3>Hello @Model.thisUser.FirstName</h3>
+        <img class="dashboardImage" src="../img/logo_transparent.png">
+        <a class="logout" href="/Logout">Logout</a>
+    </div>
     <div class="container">
 
-            <div class="header">
-                <a href="/Logout">Logout</a>
-            </div>
             <div class="table">
                 <table>
                     <tr>
@@ -66,7 +64,9 @@
                     }
                 </table>
                 
-                <a href="/AddGroup">Create A Study Group</a>
+            </div>
+            <div class="creategroup">
+                <a class="studygroup" href="/AddGroup">Create A Study Group</a>
             </div>
         </div>
     </body>

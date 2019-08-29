@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <link rel="stylesheet" href="~/css/CreateGroup.css"/>
+
 </head>
 <body>
     @model CreateGroupViewModel
@@ -16,30 +18,31 @@
     <div class="form">
         <form asp-action="CreateGroup" asp-controller="Home" method="POST">
             <span asp-validation-for="newGroup.Name"></span>
-            <label asp-for="newGroup.Name">Group Name: </label>
-            <input type="text" asp-for="newGroup.Name">
+            <label  asp-for="newGroup.Name">Group Name: </label>
+            <input class="name" type="text" asp-for="newGroup.Name">
             <br>
             <span asp-validation-for="newGroup.Date"></span>
             <label asp-for="newGroup.Date">Date: </label>
-            <input type="date" asp-for="newGroup.Date">
+            <input class="date" type="date" asp-for="newGroup.Date">
             <br>
             <span asp-validation-for="newGroup.Subject"></span>
             <label asp-for="newGroup.Subject">Subject: </label>
-            <input type="text" asp-for="newGroup.Subject">
+            <input class="subject" type="text" asp-for="newGroup.Subject">
             <br>
             <span asp-validation-for="newGroup.Location"></span>
-            <label asp-for="newGroup.Location">Location: </label>
-            <input type="text" asp-for="newGroup.Location">
+            <label  asp-for="newGroup.Location">Location: </label>
+            <input class="location" type="text" asp-for="newGroup.Location">
             <br>
             <span asp-validation-for="newGroup.Time"></span>
             <label asp-for="newGroup.Time">Time: </label>
-            <input type="datetime" asp-for="newGroup.Time">
+            <input class="time" type="datetime" asp-for="newGroup.Time">
             <br>
             <span asp-validation-for="newGroup.Duration"></span>
             <label asp-for="newGroup.Duration">Duration: </label>
-            <input type="number" asp-for="newGroup.Duration">
+            <input class="duration" type="number" asp-for="newGroup.Duration">
+            <br>
             <span asp-validation-for="newGroup.HourMinute"></span>
-            <select asp-for="newGroup.HourMinute">
+            <select class="hourminute" asp-for="newGroup.HourMinute">
                 <option>Hours</option>
                 <option>Minutes</option>
             </select>
