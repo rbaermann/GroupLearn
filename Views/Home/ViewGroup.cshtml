@@ -16,7 +16,7 @@
     <div class="middle">
         <h2>@Model.thisGroup.Name</h2>
         <h4>Group Leader: @Model.thisGroup.Leader.FirstName @Model.thisGroup.Leader.LastName</h4>
-        <h4>When We Are Meeting: @Model.thisGroup.Time</h4>
+        <h4>When We Are Meeting: @Model.thisGroup.Date.ToString("MMM dd"), @Model.thisGroup.Time.ToString("t")</h4>
         <h4>How Long We Plan On Studying: @Model.thisGroup.Duration @Model.thisGroup.HourMinute</h4>
     </div>
     <div class="joined">
