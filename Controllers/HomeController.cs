@@ -59,7 +59,11 @@ namespace GroupLearn.Controllers
             }
                 else
                 {
-                    return View("Index");
+                    CreatingUserViewModel viewModels = new CreatingUserViewModel();
+
+                    viewModels.ListOfSchools = dbContext.Schools
+                    .ToList();
+                    return View("NewUser", viewModels);
                 }
         }
 
@@ -93,9 +97,21 @@ namespace GroupLearn.Controllers
         }
 
         [HttpPost("createSchool")]
-        public RedirectToActionResult CreateSchool(CreatingUserViewModel submittedSchool)
+        public IActionResult CreateSchool(CreatingUserViewModel submittedSchool)
         {
             School viewModel = submittedSchool.NewSchool;
+
+            if(dbContext.Schools.Any(s => s.Location == submittedSchool.NewSchool.Location))
+            {
+                ModelState.AddModelError("NewSchool.Location", "Location already in use!");
+
+                CreatingUserViewModel viewModels = new CreatingUserViewModel();
+
+                viewModels.ListOfSchools = dbContext.Schools
+                .ToList();
+
+                return View("NewUser", viewModels);
+            }
             
             dbContext.Add(viewModel);
             dbContext.SaveChanges();

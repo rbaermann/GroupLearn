@@ -11,6 +11,21 @@
         <div class="header">
             <a href="/Dashboard">Home</a>
             <a href="/Logout">Logout</a>
+            @{
+                if(@Model.thisGroup.Leader == @Model.thisUser)
+                {
+                    <a href="/Delete/@Model.thisGroup.GroupId">Delete Group</a>
+                }
+                else if(@Model.thisGroup.UserGroups.Any(u=>u.UserId==@Model.thisUser.UserId))
+                {
+                    <a href="/Remove/@Model.thisGroup.GroupId/@Model.thisUser.UserId">Leave Group</a>
+                }
+                else
+                {
+                    <a href="/Join/@Model.thisGroup.GroupId/@Model.thisUser.UserId">Join Group</a>
+                }
+                
+            }
         </div>
 
         <div class="middle">

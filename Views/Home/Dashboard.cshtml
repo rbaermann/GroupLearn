@@ -14,27 +14,23 @@
             <div class="header">
                 <a href="/Logout">Logout</a>
             </div>
-            @if(Model.currentGroups.Count == 0)
-            {
-
-            }
-            else
-            {
-                <div class="table">
-                    <table>
-                        <tr>
-                            <th>Group Name</th>
-                            <th>Leader</th>
-                            <th>Date</th>
-                            <th>Subject</th>
-                            <th>Location</th>
-                            <th>Meeting Time</th>
-                            <th>Study Time</th>
-                            <th>Size</th>
-                            <th>Action</th>
-                        </tr>
-                        
-                        @foreach(Group group in Model.currentGroups)
+            <div class="table">
+                <table>
+                    <tr>
+                        <th>Group Name</th>
+                        <th>Leader</th>
+                        <th>Date</th>
+                        <th>Subject</th>
+                        <th>Location</th>
+                        <th>Meeting Time</th>
+                        <th>Study Time</th>
+                        <th>Size</th>
+                        <th>Action</th>
+                    </tr>
+                    
+                    @foreach(Group group in Model.currentGroups)
+                    {
+                        if(@Model.thisUser.SchoolId == group.Leader.SchoolId)
                         {
                             <tr>
                                 <td><a href="/ViewGroup/@group.GroupId">@group.Name</a></td>
@@ -64,12 +60,11 @@
                                     }
                                 </td>
                             </tr>
-                            
                         }
-                    </table>
-                    
-                </div>
-            }
+                    }
+                </table>
+                
+            </div>
             <a href="/AddGroup">Create A Study Group</a>
         </div>
     </body>
