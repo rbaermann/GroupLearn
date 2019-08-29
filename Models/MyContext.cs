@@ -9,5 +9,6 @@ namespace GroupLearn.Models
         public DbSet<Group> Groups{get;set;}
         public DbSet<School> Schools{get;set;}
         public DbSet<UserGroup> UserGroups{get;set;}
+        public DbSet<UserRates> UserRates {get; set;}
     }
 }

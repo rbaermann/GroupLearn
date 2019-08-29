@@ -1,0 +1,58 @@
+@using GroupLearn.Models
+@model UserInfoViewModel
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>User</title>
+    </head>
+    <body>
+        <h1>User Information</h1>
+        <h3>Name: @Model.UserInfo.FirstName @Model.UserInfo.LastName</h3>
+        @{
+            if(@Model.UserInfo.UserRates.Count == 0)
+            {
+                <h3>User has not been rated yet.</h3>
+            }
+            else
+            {
+                <h3>Rating: @Model.UserInfo.Rating</h3>
+            }
+
+            if(@Model.UserInfo.UserId != @Model.CurrentUser.UserId)
+            {
+
+                <h3>Total # of Ratings: @Model.UserInfo.UserRates.Count</h3>
+
+                if(@Model.UserInfo.UserRates.Any(ur => ur.CurUser == (int)@Model.CurrentUser.UserId))
+                {
+                    <a href="/removeRating/@Model.UserInfo.UserId/@Model.CurrentUser.UserId">Remove Rating</a>
+                }
+                else
+                {
+                    <p>Please Leave a Rating!</p>
+                    
+                    <form asp-action="UserRating" asp-route-UserId="@Model.UserInfo.UserId" asp-controller="Home" method="POST">
+                        
+                        <span asp-validation-for="UserInfo.allRatings"></span>
+                        <label asp-for="UserInfo.allRatings"></label>
+                        <select asp-for="UserInfo.allRatings">
+                            <option value=1>1</option>
+                            <option value=2>2</option>
+                            <option value=3>3</option>
+                            <option value=4>4</option>
+                            <option value=5>5</option>
+                        </select>
+
+                        <input type="submit" value="Submit">
+                    
+                    </form>
+                }
+            }
+        }
+        <h3>School: @Model.UsersSchool.Name</h3>
+    </body>
+</html>
