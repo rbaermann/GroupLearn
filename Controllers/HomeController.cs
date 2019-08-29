@@ -111,5 +111,77 @@ namespace GroupLearn.Controllers
             }
             return RedirectToAction("Index");
         }
+
+        [HttpGet("User/{UserId}")]
+        public IActionResult ViewUser(int UserId)
+        {
+            if(HttpContext.Session.GetInt32("InSession")!=null)
+            {
+                UserInfoViewModel viewModel = new UserInfoViewModel();
+
+                viewModel.UserInfo = dbContext.Users
+                .Include(u => u.UserRates)
+                .FirstOrDefault(u => u.UserId == UserId);
+
+                viewModel.CurrentUser = dbContext.Users
+                .FirstOrDefault(u => u.UserId == HttpContext.Session.GetInt32("InSession"));
+
+                viewModel.UsersSchool = dbContext.Schools
+                .FirstOrDefault(s => s.SchoolId == viewModel.UserInfo.SchoolId);
+
+                return View("ViewUser", viewModel);
+            }
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost("userRating/{UserId}")]
+        public IActionResult UserRating(UserInfoViewModel submittedRating, int UserId)
+        {
+            UserRates newRate = new UserRates();
+            
+            newRate.UserId = UserId;
+            newRate.CurUser = (int)HttpContext.Session.GetInt32("InSession");
+            newRate.Rating = submittedRating.UserInfo.allRatings;
+            
+            dbContext.UserRates.Add(newRate);
+            dbContext.SaveChanges();
+
+            User user = dbContext.Users
+            .Include(u => u.UserRates)
+            .FirstOrDefault(u => u.UserId == UserId);
+
+            user.allRatings += submittedRating.UserInfo.allRatings;
+            user.Rating = (user.allRatings/user.UserRates.Count);
+            dbContext.SaveChanges();
+
+            return RedirectToAction("ViewUser", new{UserId = UserId});
+        }
+
+        [HttpGet("removeRating/{UserId}/{CurrentUserId}")]
+        public RedirectToActionResult RemoveRating(int UserId, int CurrentUserId)
+        {
+            UserRates thisRate = dbContext.UserRates
+            .FirstOrDefault(ur => ur.UserId == UserId && ur.CurUser == CurrentUserId);
+
+            User user = dbContext.Users
+            .Include(u => u.UserRates)
+            .FirstOrDefault(u => u.UserId == UserId);
+
+            dbContext.UserRates.Remove(thisRate);
+            dbContext.SaveChanges();
+
+            user.allRatings -= thisRate.Rating;if(user.UserRates.Count == 0)
+            {
+                user.Rating = 0;
+            }
+            else
+            {
+                user.Rating = (user.allRatings/user.UserRates.Count);
+            }
+            
+            dbContext.SaveChanges();
+
+            return RedirectToAction("ViewUser", new{UserId = UserId});
+        }
     }
 }

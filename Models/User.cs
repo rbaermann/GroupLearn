@@ -29,6 +29,9 @@ namespace GroupLearn.Models
         public School School{get;set;}
         public int SchoolId{get;set;}
 
+        public int Rating {get; set;}
+        public int allRatings {get; set;}
+        public List<UserRates> UserRates {get; set;}
 
         public DateTime CreatedAt {get;set;} = DateTime.Now;
         public DateTime UpdatedAt {get;set;} = DateTime.Now;
