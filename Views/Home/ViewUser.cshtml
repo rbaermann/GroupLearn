@@ -10,7 +10,10 @@
         <title>User</title>
     </head>
     <body>
-        <a href="/Dashboard">Home</a>
+        <div class="header">
+            <a href="/Dashboard">Home</a>
+            <a href="/Logout">Logout</a>
+        </div>
         <h1>User Information</h1>
         <h3>Name: @Model.UserInfo.FirstName @Model.UserInfo.LastName</h3>
         @{
