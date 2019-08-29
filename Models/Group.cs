@@ -16,6 +16,9 @@ namespace GroupLearn.Models
         [Required]
         public string Subject{get;set;}
 
+        [Required]
+        public DateTime Date{get;set;}
+
         public int Size{get;set;}
 
         [Required]

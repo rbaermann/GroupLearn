@@ -107,11 +107,133 @@ namespace GroupLearn.Controllers
         {
             if(HttpContext.Session.GetInt32("InSession")!=null)
             {
-                return View("Dashboard");
+                GroupDashboardViewModel viewModel = new GroupDashboardViewModel();
+
+                viewModel.currentGroups = dbContext.Groups
+                    .Include(l=>l.Leader)
+                    .Include(ug=>ug.UserGroups)
+                    .ThenInclude(u=>u.User)
+                    .ToList();
+
+                viewModel.thisUser = dbContext.Users
+                    .FirstOrDefault(u=>u.UserId==HttpContext.Session.GetInt32("InSession"));
+                return View("Dashboard", viewModel);
             }
             return RedirectToAction("Index");
         }
 
+
+        [HttpGet("/AddGroup")]
+        public IActionResult AddGroup()
+        {
+            if(HttpContext.Session.GetInt32("InSession")!=null)
+            {
+                CreateGroupViewModel viewModel = new CreateGroupViewModel();
+                viewModel.currentUser = dbContext.Users
+                    .FirstOrDefault(u=>u.UserId==HttpContext.Session.GetInt32("InSession")); 
+                return View("Create", viewModel);
+            }
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost("/CreateGroup")]
+        public IActionResult CreateGroup(CreateGroupViewModel viewModel)
+        {
+            System.Console.WriteLine("!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            if(HttpContext.Session.GetInt32("InSession")!=null)
+            {
+                System.Console.WriteLine("@@@@@@@@@@@@@@@@@@@@@@@@@");
+                if(ModelState.IsValid)
+                {
+                    System.Console.WriteLine("###########################");
+                    Group newGroup = viewModel.newGroup;
+                    newGroup.Leader = dbContext.Users
+                        .FirstOrDefault(u=>u.UserId==HttpContext.Session.GetInt32("InSession"));
+                    viewModel.currentUser = dbContext.Users
+                        .FirstOrDefault(u=>u.UserId==HttpContext.Session.GetInt32("InSession"));
+                    newGroup.School = dbContext.Schools
+                        .FirstOrDefault(s=>s.SchoolId == viewModel.currentUser.SchoolId);
+
+                    dbContext.Add(newGroup);
+                    dbContext.SaveChanges();
+                    return RedirectToAction("Dashboard", newGroup);
+                }
+                System.Console.WriteLine("$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+                return View("Create");
+            }
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet("Join/{GroupId}/{UserId}")]
+        public IActionResult JoinGroup(int GroupId, int UserId)
+        {
+            if(HttpContext.Session.GetInt32("InSession")!=null)
+            {
+                UserGroup userGroup = new UserGroup();
+                userGroup.UserId = UserId;
+                userGroup.GroupId = GroupId;
+                dbContext.UserGroups.Add(userGroup);
+                dbContext.SaveChanges();
+                return RedirectToAction("Dashboard");
+            }
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet("Remove/{GroupId}/{UserId}")]
+        public IActionResult LeaveGroup(int GroupId, int UserId)
+        {
+            if(HttpContext.Session.GetInt32("InSession")!=null)
+            {
+                UserGroup userGroup = dbContext.UserGroups
+                    .Where(ug=>ug.GroupId == GroupId && ug.UserId == UserId)
+                    .FirstOrDefault();
+                dbContext.UserGroups.Remove(userGroup);
+                dbContext.SaveChanges();
+                return RedirectToAction("Dashboard");
+            }
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet("Delete/{GroupId}")]
+        public IActionResult StudyGroup(int GroupId)
+        {
+            if(HttpContext.Session.GetInt32("InSession")!=null)
+            {
+                Group group = dbContext.Groups
+                    .Include(l=>l.Leader)
+                    .FirstOrDefault(g=>g.GroupId==GroupId);
+
+                if(group.Leader.UserId!= HttpContext.Session.GetInt32("InSession"))
+                {
+                    return RedirectToAction("Index");
+                }
+
+                dbContext.Groups.Remove(group);
+                dbContext.SaveChanges();
+                return RedirectToAction("Dashboard");
+            }
+            return RedirectToAction("Index");
+
+        }
+
+        [HttpGet("ViewGroup/{GroupId}")]
+        public IActionResult ViewGroup(int GroupId)
+        {
+            if(HttpContext.Session.GetInt32("InSession")!=null)
+            {
+                ViewGroupViewModel viewModel = new ViewGroupViewModel();
+                viewModel.thisGroup = dbContext.Groups
+                    .Include(l=>l.Leader)
+                    .Include(ug=>ug.UserGroups)
+                    .ThenInclude(u=>u.User)
+                    .FirstOrDefault(g=>g.GroupId==GroupId);
+
+                viewModel.thisUser = dbContext.Users
+                    .FirstOrDefault(u=>u.UserId==HttpContext.Session.GetInt32("InSession"));
+                return View("ViewGroup", viewModel);
+            }
+            return RedirectToAction("Index");
+        }
         [HttpGet("User/{UserId}")]
         public IActionResult ViewUser(int UserId)
         {
@@ -134,6 +256,14 @@ namespace GroupLearn.Controllers
             return RedirectToAction("Index");
         }
 
+
+
+        [HttpGet("/Logout")]
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToAction("Index");
+        }
         [HttpPost("userRating/{UserId}")]
         public IActionResult UserRating(UserInfoViewModel submittedRating, int UserId)
         {
