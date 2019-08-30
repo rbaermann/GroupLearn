@@ -14,7 +14,7 @@
     </head>
     <body>
         <div class="header">
-            <a href="/Logout">Logout</a>
+            <a href="/Logout">Logout</a> |
             <a href="/Dashboard">Home</a>
         </div>
         <div class="words">
@@ -75,19 +75,6 @@
 
                 <h3>Total # of Ratings: @Model.UserInfo.UserRates.Count</h3>
             }
-
-            <h1>User Information</h1>
-            <h3>Name: @Model.UserInfo.FirstName @Model.UserInfo.LastName</h3>
-            @{
-                if(@Model.UserInfo.UserRates.Count == 0)
-                {
-                    <h3>@Model.UserInfo.FirstName has not been rated yet.</h3>
-                }
-                else
-                {
-                    <h3>Rating: @Model.UserInfo.Rating</h3>
-                    <h3>Total # of Ratings: @Model.UserInfo.UserRates.Count</h3>
-                }
                 
                 if(@Model.UserInfo.UserId != @Model.CurrentUser.UserId)
                 {
