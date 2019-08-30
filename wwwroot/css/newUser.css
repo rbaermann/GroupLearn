@@ -1,0 +1,18 @@
+.wrapper{
+    border: 1px solid black;
+}
+
+.register{
+    border: 1px solid black;
+    width: 350px;
+    position: relative;
+}
+
+.firstname, .lastname, .email, .school, .password, .confirmpassword{
+    position: absolute;
+    right: 35px;
+}
+
+.button{
+    margin-top: 5px;
+}

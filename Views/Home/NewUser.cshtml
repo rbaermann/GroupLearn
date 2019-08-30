@@ -8,62 +8,67 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <link rel="stylesheet" href="~/css/newUser.css"/>
+
 </head>
 <body>
-    <h1>Register</h1>
-    <a href="/">Already Have an Account?</a>
-    <div class="register">
-        <form asp-action="CreateUser" asp-controller="Home" method="POST">
-            <span asp-validation-for="newUser.FirstName"></span>
-            <label asp-for="newUser.FirstName">First Name: </label>
-            <input type="text" asp-for="newUser.FirstName">
-            <br>
-            <span asp-validation-for="newUser.LastName"></span>
-            <label asp-for="newUser.LastName">Last Name: </label>
-            <input type="text" asp-for="newUser.LastName">
-            <br>
-            <span asp-validation-for="newUser.Email"></span>
-            <label asp-for="newUser.Email">Email: </label>
-            <input type="text" asp-for="newUser.Email">
-            <br>
-            <span asp-validation-for="newUser.SchoolId"></span>
-            <label asp-for="newUser.SchoolId">School</label>
-            <select asp-for="newUser.SchoolId">
-                @{
-                    foreach(School school in Model.ListOfSchools)
-                    {
-                        <option value="@school.SchoolId">@school.Name</option>
-                    }
-                }
-            </select>
-            <br>
-            <span asp-validation-for="newUser.Password"></span>
-            <label asp-for="newUser.Password">Password: </label>
-            <input type="password" asp-for="newUser.Password">
-            <br>
-            <span asp-validation-for="newUser.ConfirmPassword"></span>
-            <label asp-for="newUser.ConfirmPassword">Confirm Password: </label>
-            <input type="password" asp-for="newUser.ConfirmPassword">
-            <br>
-            <input type="hidden" value="" asp-for="newUser.SchoolId">
-            <input type="submit" value="Register">
-        </form>
-    </div>
+    <div class="wrapper">
 
-    <h3>School Not Present?</h3>
-
-        <form asp-action="CreateSchool" asp-controller="Home" method="post">
-
-            <span asp-validation-for="NewSchool.Name"></span>
-            <label asp-for="NewSchool.Name">School Name: </label>
-            <input asp-for="NewSchool.Name">
-
-            <span asp-validation-for="NewSchool.Location"></span>
-            <label asp-for="NewSchool.Location">School Address: </label>
-            <input asp-for="NewSchool.Location">
-
-            <input type="submit" value="Submit">
-
-        </form>
-</body>
+            <h1>Register</h1>
+            <a href="/">Already Have an Account?</a>
+            <div class="register">
+                <form asp-action="CreateUser" asp-controller="Home" method="POST">
+                    <span asp-validation-for="newUser.FirstName"></span>
+                    <label asp-for="newUser.FirstName">First Name: </label>
+                    <input class="firstname" type="text" asp-for="newUser.FirstName">
+                    <br>
+                    <span asp-validation-for="newUser.LastName"></span>
+                    <label asp-for="newUser.LastName">Last Name: </label>
+                    <input class="lastname" type="text" asp-for="newUser.LastName">
+                    <br>
+                    <span asp-validation-for="newUser.Email"></span>
+                    <label asp-for="newUser.Email">Email: </label>
+                    <input class="email" type="text" asp-for="newUser.Email">
+                    <br>
+                    <span asp-validation-for="newUser.SchoolId"></span>
+                    <label asp-for="newUser.SchoolId">School</label>
+                    <select class="school" asp-for="newUser.SchoolId">
+                        @{
+                            foreach(School school in Model.ListOfSchools)
+                            {
+                                <option value="@school.SchoolId">@school.Name</option>
+                            }
+                        }
+                    </select>
+                    <br>
+                    <span asp-validation-for="newUser.Password"></span>
+                    <label asp-for="newUser.Password">Password: </label>
+                    <input class="password" type="password" asp-for="newUser.Password">
+                    <br>
+                    <span asp-validation-for="newUser.ConfirmPassword"></span>
+                    <label asp-for="newUser.ConfirmPassword">Confirm Password: </label>
+                    <input class="confirmpassword" type="password" asp-for="newUser.ConfirmPassword">
+                    <br>
+                    <input type="hidden" value="" asp-for="newUser.SchoolId">
+                    <input class="button" type="submit" value="Register">
+                </form>
+            </div>
+            
+            <h3>School Not Present?</h3>
+            
+            <form asp-action="CreateSchool" asp-controller="Home" method="post">
+                
+                <span asp-validation-for="NewSchool.Name"></span>
+                <label asp-for="NewSchool.Name">School Name: </label>
+                <input asp-for="NewSchool.Name">
+                
+                <span asp-validation-for="NewSchool.Location"></span>
+                <label asp-for="NewSchool.Location">School Address: </label>
+                <input asp-for="NewSchool.Location">
+                
+                <input type="submit" value="Submit">
+                
+            </form>
+        </div>
+    </body>
 </html>

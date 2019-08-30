@@ -1,3 +1,4 @@
+
 .header{
     height: 100px;
     width: auto;
@@ -20,6 +21,7 @@
 body{
     width: auto;
     background-image: url("../img/GroupDashboardImage.png");
+    background-repeat: no-repeat;
     background-size: cover;
     transform: rotate(.2deg);
 }
