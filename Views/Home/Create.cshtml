@@ -11,14 +11,14 @@
 <body>
     @model CreateGroupViewModel
     <div class="header">
-        <a href="/Dashboard">Home</a>
+        <a href="/Dashboard">Home</a> |
         <a href="/Logout">Logout</a>
     </div>
 
     <div class="form">
         <form asp-action="CreateGroup" asp-controller="Home" method="POST">
             <span asp-validation-for="newGroup.Name"></span>
-            <label  asp-for="newGroup.Name">Group Name: </label>
+            <label class="working"  asp-for="newGroup.Name">Group Name: </label>
             <input class="name" type="text" asp-for="newGroup.Name">
             <br>
             <span asp-validation-for="newGroup.Date"></span>

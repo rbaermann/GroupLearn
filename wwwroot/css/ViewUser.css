@@ -1,0 +1,40 @@
+table, th, td{
+    border: 1px solid black;
+}
+
+
+
+.table{
+    margin-top: 20px;
+    height: 100px;
+    overflow: auto;
+
+    border: 1px solid black;
+    
+}
+
+tr:nth-child(even){
+    background-color: #dddddd;
+}
+
+tr:nth-child(odd)
+{
+    background-color: whitesmoke;
+}
+
+body{
+    width: auto;
+    background-image: url("../img/viewUser.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    transform: rotate(.2deg);
+    height: 100%;
+}
+
+.words{
+    color: white;
+}
+
+.header{
+    margin-top: 30px;
+}

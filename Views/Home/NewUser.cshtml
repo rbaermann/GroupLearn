@@ -13,9 +13,11 @@
 </head>
 <body>
     <div class="wrapper">
-
+        <div class="header">
             <h1>Register</h1>
             <a href="/">Already Have an Account?</a>
+        </div>
+
             <div class="register">
                 <form asp-action="CreateUser" asp-controller="Home" method="POST">
                     <span asp-validation-for="newUser.FirstName"></span>
@@ -53,20 +55,24 @@
                     <input class="button" type="submit" value="Register">
                 </form>
             </div>
+           
+            <div class="schoolblock">
+
+                <h3>School Not Present?</h3>
+                
+                <form asp-action="CreateSchool" asp-controller="Home" method="post">
+                    
+                    <span asp-validation-for="NewSchool.Name"></span>
+                    <label asp-for="NewSchool.Name">School Name: </label>
+                    <input asp-for="NewSchool.Name">
+                    
+                    <span asp-validation-for="NewSchool.Location"></span>
+                    <label asp-for="NewSchool.Location">School Address: </label>
+                    <input asp-for="NewSchool.Location">
+                    
+                    <input type="submit" value="Submit">
+            </div>
             
-            <h3>School Not Present?</h3>
-            
-            <form asp-action="CreateSchool" asp-controller="Home" method="post">
-                
-                <span asp-validation-for="NewSchool.Name"></span>
-                <label asp-for="NewSchool.Name">School Name: </label>
-                <input asp-for="NewSchool.Name">
-                
-                <span asp-validation-for="NewSchool.Location"></span>
-                <label asp-for="NewSchool.Location">School Address: </label>
-                <input asp-for="NewSchool.Location">
-                
-                <input type="submit" value="Submit">
                 
             </form>
         </div>

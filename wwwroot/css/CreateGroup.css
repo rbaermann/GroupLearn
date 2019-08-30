@@ -1,7 +1,12 @@
 body{
+    width: auto;
     text-align: center;
+    background-image: url("../img/CreateGroup.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    transform: rotate(.2deg);
+    height: 100%;
 }
-
 .header{
     height: 100px;
     border-bottom: 1px solid black;
@@ -13,7 +18,9 @@ body{
     text-align: center;
     position: relative;
     border: 1px solid black;
-    width: 600px;
+    width: 500px;
+    opacity: .85;
+    background: white;
 
 }
 
@@ -21,5 +28,14 @@ body{
 .name, .date, .subject, .location, .time, .duration, .hourminute{
     position: absolute;
     right: 15px;
+    
+    
 }
 
+.name{
+    margin-top: 10px;
+}
+
+.working{
+    margin-top: 10px;
+}

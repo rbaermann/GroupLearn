@@ -8,57 +8,62 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>User</title>
+        <link rel="stylesheet" href="~/css/ViewUser.css"/>
+
     </head>
     <body>
         <div class="header">
-            <a href="/Dashboard">Home</a>
             <a href="/Logout">Logout</a>
+            <a href="/Dashboard">Home</a>
         </div>
-        <h1>User Information</h1>
-        <h3>Name: @Model.UserInfo.FirstName @Model.UserInfo.LastName</h3>
-        @{
-            if(@Model.UserInfo.UserRates.Count == 0)
-            {
-                <h3>@Model.UserInfo.FirstName has not been rated yet.</h3>
-            }
-            else
-            {
-                <h3>Rating: @Model.UserInfo.Rating</h3>
-                <h3>Total # of Ratings: @Model.UserInfo.UserRates.Count</h3>
-            }
+        <div class="words">
 
-            if(@Model.UserInfo.UserId != @Model.CurrentUser.UserId)
-            {
-                if(@Model.UserInfo.UserRates.Any(ur => ur.CurUser == (int)@Model.CurrentUser.UserId))
+            <h1>User Information</h1>
+            <h3>Name: @Model.UserInfo.FirstName @Model.UserInfo.LastName</h3>
+            @{
+                if(@Model.UserInfo.UserRates.Count == 0)
                 {
-                    <a href="/removeRating/@Model.UserInfo.UserId/@Model.CurrentUser.UserId">Remove Rating</a>
+                    <h3>@Model.UserInfo.FirstName has not been rated yet.</h3>
                 }
                 else
                 {
-                    <p>Please Leave a Rating!</p>
-                    
-                    <form asp-action="UserRating" asp-route-UserId="@Model.UserInfo.UserId" asp-controller="Home" method="POST">
+                    <h3>Rating: @Model.UserInfo.Rating</h3>
+                    <h3>Total # of Ratings: @Model.UserInfo.UserRates.Count</h3>
+                }
+                
+                if(@Model.UserInfo.UserId != @Model.CurrentUser.UserId)
+                {
+                    if(@Model.UserInfo.UserRates.Any(ur => ur.CurUser == (int)@Model.CurrentUser.UserId))
+                    {
+                        <a href="/removeRating/@Model.UserInfo.UserId/@Model.CurrentUser.UserId">Remove Rating</a>
+                    }
+                    else
+                    {
+                        <p>Please Leave a Rating!</p>
                         
-                        <span asp-validation-for="UserInfo.allRatings"></span>
-                        <label asp-for="UserInfo.allRatings"></label>
-                        <select asp-for="UserInfo.allRatings">
-                            <option value=1>1</option>
-                            <option value=2>2</option>
-                            <option value=3>3</option>
-                            <option value=4>4</option>
-                            <option value=5>5</option>
-                        </select>
-
-                        <input type="submit" value="Submit">
-                    
-                    </form>
+                        <form asp-action="UserRating" asp-route-UserId="@Model.UserInfo.UserId" asp-controller="Home" method="POST">
+                            
+                            <span asp-validation-for="UserInfo.allRatings"></span>
+                            <label asp-for="UserInfo.allRatings"></label>
+                            <select asp-for="UserInfo.allRatings">
+                                <option value=1>1</option>
+                                <option value=2>2</option>
+                                <option value=3>3</option>
+                                <option value=4>4</option>
+                                <option value=5>5</option>
+                            </select>
+                            
+                            <input type="submit" value="Submit">
+                            
+                        </form>
+                    }
                 }
             }
-        }
-        <h3>School: @Model.UsersSchool.Name</h3>
-
-        @{
-            <table>
+            <h3>School: @Model.UsersSchool.Name</h3>
+            
+        </div>
+            @{
+                <table class="table">
                 <tr>
                     <th>Group Name</th>
                     <th>Leader</th>

@@ -10,11 +10,11 @@
 <body>
     @model GroupDashboardViewModel
     <div class="header">
-        <h3>Hello @Model.thisUser.FirstName</h3>
+        <h3 class="hello">Hello @Model.thisUser.FirstName</h3>
         <img class="dashboardImage" src="../img/logo_transparent.png">
         <a class="logout" href="/Logout">Logout</a>
     </div>
-    <div class="container">
+    <div class="wrapper">
 
             <div class="table">
                 <table>
@@ -70,7 +70,6 @@
             <div class="creategroup">
                 <a class="studygroup" href="/AddGroup">Create A Study Group</a>
             </div>
-            <a href="/AddGroup">Create A Study Group</a>
         </div>
     </body>
 </html>

@@ -12,27 +12,27 @@
     <body>
         @model ViewGroupViewModel
         <div class="header">
-            <a href="/Dashboard">Home</a>
-            <a href="/Logout">Logout</a>
+            <a class="Home" href="/Dashboard">Home</a> |
             @{
                 if(@Model.thisGroup.Leader == @Model.thisUser)
                 {
-                    <a href="/Delete/@Model.thisGroup.GroupId">Delete Group</a>
+                    <a class="action" href="/Delete/@Model.thisGroup.GroupId">Delete Group</a>
                 }
                 else if(@Model.thisGroup.UserGroups.Any(u=>u.UserId==@Model.thisUser.UserId))
                 {
-                    <a href="/Remove/@Model.thisGroup.GroupId/@Model.thisUser.UserId">Leave Group</a>
+                    <a class="action" href="/Remove/@Model.thisGroup.GroupId/@Model.thisUser.UserId">Leave Group</a>
                 }
                 else
                 {
-                    <a href="/Join/@Model.thisGroup.GroupId/@Model.thisUser.UserId">Join Group</a>
+                    <a class="action" href="/Join/@Model.thisGroup.GroupId/@Model.thisUser.UserId">Join Group</a>
                 }
                 
             }
+            | <a class="logout" href="/Logout">Logout</a>
         </div>
 
         <div class="middle">
-            <h2>@Model.thisGroup.Name</h2>
+            <h2 >@Model.thisGroup.Name</h2>
             <h4>Group Leader: <a href="/User/@Model.thisGroup.Leader.UserId">@Model.thisGroup.Leader.FirstName @Model.thisGroup.Leader.LastName</a></h4>
             <h4>When We Are Meeting: @Model.thisGroup.Date.ToString("MMM dd"), @Model.thisGroup.Time.ToString("t")</h4>
             <h4>How Long We Plan On Studying: @Model.thisGroup.Duration @Model.thisGroup.HourMinute</h4>
@@ -44,12 +44,24 @@
             }
             else
             {
-            <h4>Group Members:</h4>
-                @foreach(var members in Model.thisGroup.UserGroups)
-                {
-                    <p>@members.User.FirstName @members.User.LastName</p>
-                }
+                <table class="notTable">
+                    <tr>
+                        <th>Group Members</th>
+                    </tr>
+
+                    @foreach(var members in Model.thisGroup.UserGroups)
+                    {
+
+                        <tr>
+                            <td>@members.User.FirstName @members.User.LastName</td>
+                        </tr>
+                    }
+
+                </table>
+            
+               
             }
         </div>
     </body>
 </html>
+
