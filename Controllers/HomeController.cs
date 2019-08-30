@@ -322,7 +322,9 @@ namespace GroupLearn.Controllers
             dbContext.UserRates.Remove(thisRate);
             dbContext.SaveChanges();
 
-            user.allRatings -= thisRate.Rating;if(user.UserRates.Count == 0)
+            user.allRatings -= thisRate.Rating;
+            
+            if(user.UserRates.Count == 0)
             {
                 user.Rating = 0;
             }
