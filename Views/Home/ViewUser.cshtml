@@ -8,6 +8,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>User</title>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
     </head>
     <body>
         <div class="header">
@@ -23,7 +24,52 @@
             }
             else
             {
-                <h3>Rating: @Model.UserInfo.Rating</h3>
+                if(@Model.UserInfo.Rating == 1)
+                {
+                    <h3>Rating: 
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <i class="far fa-star"></i></h3>
+                }
+                else if(@Model.UserInfo.Rating == 2)
+                {
+                    <h3>Rating: 
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <i class="far fa-star"></i></h3>
+                }
+                else if(@Model.UserInfo.Rating == 3)
+                {
+                    <h3>Rating: 
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <i class="far fa-star"></i></h3>
+                }
+                else if(@Model.UserInfo.Rating == 4)
+                {
+                    <h3>Rating: 
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i></h3>
+                }
+                else
+                {
+                    <h3>Rating: 
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i></h3>
+                }
+
                 <h3>Total # of Ratings: @Model.UserInfo.UserRates.Count</h3>
             }
 
@@ -31,7 +77,10 @@
             {
                 if(@Model.UserInfo.UserRates.Any(ur => ur.CurUser == (int)@Model.CurrentUser.UserId))
                 {
-                    <a href="/removeRating/@Model.UserInfo.UserId/@Model.CurrentUser.UserId">Remove Rating</a>
+                    UserRates thisRate = @Model.UserInfo.UserRates
+                    .FirstOrDefault(ur => ur.UserId == @Model.UserInfo.UserId && ur.CurUser == @Model.CurrentUser.UserId);
+
+                    <h3>You Rated @Model.UserInfo.FirstName a @thisRate.Rating. Would You Like to <a href="/removeRating/@Model.UserInfo.UserId/@Model.CurrentUser.UserId">Remove Rating</a></h3>
                 }
                 else
                 {
